@@ -7,5 +7,6 @@
         public const string StartsWith = "startWith";
         public const string LessThan = "lessThan";
         public const string GreaterThan = "greaterThan";
+
     }
 }

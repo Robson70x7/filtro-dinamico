@@ -8,11 +8,13 @@ namespace FiltrDinamico.Core.Interpreters
 {
     public abstract class FilterTypeInterpreter<TType> : IFilterTypeInterpreter<TType>
     {
-        private FiltroItem _filtroItem;
+        public FiltroItem _filtroItem;
+        public Operator _operator;
 
-        public FilterTypeInterpreter(FiltroItem filtroItem)
+        public FilterTypeInterpreter(FiltroItem filtroItem, Operator @operator)
         {
             _filtroItem = filtroItem;
+            _operator = @operator;
         }
 
         public Expression<Func<TType, bool>> Interpret()

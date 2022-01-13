@@ -5,7 +5,7 @@ namespace FiltrDinamico.Core.Interpreters
 {
     public class LessThanInterpreter<TType> : FilterTypeInterpreter<TType>
     {
-        public LessThanInterpreter(FiltroItem filtroItem) : base(filtroItem)
+        public LessThanInterpreter(FiltroItem filtroItem, Operator @operator) : base(filtroItem, @operator)
         {
         }
 

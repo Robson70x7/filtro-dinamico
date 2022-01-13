@@ -17,13 +17,35 @@ namespace FiltrDinamico.Core
             _factory = factory;
         }
 
-        public Expression<Func<TType, bool>> FromFiltroItemList<TType>(IReadOnlyList<FiltroItem> filtroItems)
+        public Expression<Func<TType, bool>> FromFiltroItemList<TType>(IReadOnlyList<FiltroOperatoGrouped> filtroItems)
         {
-            return filtroItems
-                .Select(filtroItem => _factory.Create<TType>(filtroItem))
-                .Aggregate((curr, next) => curr.And(next))
-                .Interpret();
-        }
+            var dados = filtroItems
+                .SelectMany(s => s.FiltroItems.Select(i => new { FiltroItem = i, s.Operator }))
+                .Select(filtro => _factory.Create<TType>(filtro.FiltroItem, filtro.Operator))
+                .GroupBy(s => ((FilterTypeInterpreter<TType>)s)._operator).ToList();
 
+            var expression = dados.Select(grupoOperator =>
+
+                grupoOperator.Aggregate((curr, next) =>
+                {
+                    var interpreter = (FilterTypeInterpreter<TType>)curr;
+
+                    return interpreter._operator == Operator.AND ?
+                    interpreter.And(next) :
+                    interpreter.Or(next);
+                })
+            ).Select(s => s.Interpret()).ToArray();
+
+            if (expression.Count() > 1)
+            {
+                var unionExpression = Expression.AndAlso(expression[0].Body, expression[1].Body);
+
+                return Expression.Lambda<Func<TType, bool>>(unionExpression, expression[0].Parameters.FirstOrDefault());
+            }
+
+            return expression[0];
+
+
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace FiltrDinamico.Core.Interpreters
 {
     public class StartsWithInterpreter<TType> : FilterTypeInterpreter<TType>
     {
-        public StartsWithInterpreter(FiltroItem filtroItem) : base(filtroItem)
+        public StartsWithInterpreter(FiltroItem filtroItem, Operator @operator) : base(filtroItem, @operator)
         {
         }
 

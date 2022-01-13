@@ -5,7 +5,7 @@ namespace FiltrDinamico.Core.Interpreters
 {
     public class ContainsInterpreter<TType> : FilterTypeInterpreter<TType>
     {
-        public ContainsInterpreter(FiltroItem filtroItem) : base(filtroItem)
+        public ContainsInterpreter(FiltroItem filtroItem, Operator @operator) : base(filtroItem, @operator)
         {
         }
 

@@ -7,6 +7,6 @@ namespace FiltrDinamico.Core
 {
     public interface IFiltroDinamico
     {
-        Expression<Func<TType, bool>> FromFiltroItemList<TType>(IReadOnlyList<FiltroItem> filtroItems);
+        Expression<Func<TType, bool>> FromFiltroItemList<TType>(IReadOnlyList<FiltroOperatoGrouped> filtroItems);
     }
 }

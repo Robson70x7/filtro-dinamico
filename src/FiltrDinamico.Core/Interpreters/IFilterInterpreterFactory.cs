@@ -4,6 +4,6 @@ namespace FiltrDinamico.Core.Interpreters
 {
     public interface IFilterInterpreterFactory
     {
-        IFilterTypeInterpreter<TType> Create<TType>(FiltroItem filtroItem);
+        IFilterTypeInterpreter<TType> Create<TType>(FiltroItem filtroItem, Operator @operator);
     }
 }

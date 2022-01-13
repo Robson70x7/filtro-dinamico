@@ -5,20 +5,20 @@ namespace FiltrDinamico.Core.Interpreters
 {
     public class FilterInterpreterFactory : IFilterInterpreterFactory
     {
-        public IFilterTypeInterpreter<TType> Create<TType>(FiltroItem filtroItem)
+        public IFilterTypeInterpreter<TType> Create<TType>(FiltroItem filtroItem, Operator @operator)
         {
             switch (filtroItem.FilterType)
             {
                 case FilterTypeConstants.Equals:
-                    return new EqualsInterpreter<TType>(filtroItem);
+                    return new EqualsInterpreter<TType>(filtroItem, @operator);
                 case FilterTypeConstants.Contains:
-                    return new ContainsInterpreter<TType>(filtroItem);
+                    return new ContainsInterpreter<TType>(filtroItem, @operator);
                 case FilterTypeConstants.GreaterThan:
-                    return new GreaterThanInterpreter<TType>(filtroItem);
+                    return new GreaterThanInterpreter<TType>(filtroItem, @operator);
                 case FilterTypeConstants.LessThan:
-                    return new LessThanInterpreter<TType>(filtroItem);
+                    return new LessThanInterpreter<TType>(filtroItem, @operator);
                 case FilterTypeConstants.StartsWith:
-                    return new StartsWithInterpreter<TType>(filtroItem);
+                    return new StartsWithInterpreter<TType>(filtroItem, @operator);
 
                 default:
                     throw new ArgumentException($"the filter type {filtroItem.FilterType} is invalid");
