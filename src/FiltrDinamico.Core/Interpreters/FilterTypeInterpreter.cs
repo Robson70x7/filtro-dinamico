@@ -6,21 +6,22 @@ using System.Reflection;
 
 namespace FiltrDinamico.Core.Interpreters
 {
-    public abstract class FilterTypeInterpreter<TType> : IFilterTypeInterpreter<TType>
+    internal abstract class FilterTypeInterpreter<TType> : IFilterTypeInterpreter<TType>
     {
         public FiltroItem _filtroItem;
-        public Operator _operator;
-
+        public Operator Operator { get; set ; }
+        
         public FilterTypeInterpreter(FiltroItem filtroItem, Operator @operator)
         {
             _filtroItem = filtroItem;
-            _operator = @operator;
+            Operator = @operator;
         }
+
 
         public Expression<Func<TType, bool>> Interpret()
         {
             var dynamicType = typeof(TType);
-            var parameter = Expression.Parameter(dynamicType, dynamicType.Name.First().ToString());
+            var parameter = Expression.Parameter(dynamicType, dynamicType.Name.First().ToString().ToLower());
             var property = Expression.Property(parameter, _filtroItem.Property);
             var propertyInfo = (PropertyInfo)property.Member;
             var value = Convert.ChangeType(_filtroItem.Value.ToString(), propertyInfo.PropertyType);

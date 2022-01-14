@@ -1,10 +1,11 @@
-﻿using System;
+﻿using FiltrDinamico.Core.Models;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace FiltrDinamico.Core.Interpreters
 {
-    public class AndInterpreter<TType> : IFilterTypeInterpreter<TType>
+    internal class AndInterpreter<TType> : IFilterTypeInterpreter<TType>
     {
         private readonly IFilterTypeInterpreter<TType> _leftInterpreter;
         private readonly IFilterTypeInterpreter<TType> _rightInterpreter;
@@ -13,6 +14,11 @@ namespace FiltrDinamico.Core.Interpreters
         {
             _leftInterpreter = leftInterpreter;
             _rightInterpreter = rightInterpreter;
+        }
+
+        public Operator Operator { 
+            get => _leftInterpreter.Operator; 
+            set { this.Operator = _leftInterpreter.Operator; } 
         }
 
         public Expression<Func<TType, bool>> Interpret()

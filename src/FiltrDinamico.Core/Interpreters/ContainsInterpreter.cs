@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace FiltrDinamico.Core.Interpreters
 {
-    public class ContainsInterpreter<TType> : FilterTypeInterpreter<TType>
+    internal class ContainsInterpreter<TType> : FilterTypeInterpreter<TType>
     {
         public ContainsInterpreter(FiltroItem filtroItem, Operator @operator) : base(filtroItem, @operator)
         {

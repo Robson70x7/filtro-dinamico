@@ -74,12 +74,36 @@ namespace FiltrDinamico.WebApp.Controllers
                         }
                     }
                 }
+                 ,
+                 new FiltroOperatoGrouped(Operator.AND)
+                {
+                    FiltroItems = new List<FiltroItem>()
+                    {
+                        new FiltroItem
+                        {
+                           Property = "Nome",
+                           FilterType = "equals",
+                           Value = "Robson"
+                        },
+
+                        new FiltroItem
+                        {
+                            Property = "Idade",
+                            FilterType = "lessThan",
+                            Value = 40
+                        }
+                    }
+                }
             };
 
             var expressionDynamic = _filtroDinamico.FromFiltroItemList<Pessoa>(paginationFilter);
 
             //var pessoas = _context.Pessoa.Where(expressionDynamic).ToList();
-
+            //{P =>   ( ( (  ((P.Nome == "Eliane") AndAlso Invoke(P => (P.Idade > 10), P))
+            //           AndAlso Invoke(P => (P.Nome == "Robson"), P))
+            //           AndAlso Invoke(P => (P.Idade < 40), P))
+            //           AndAlso ((P.Nome == "Robson")
+            //           OrElse Invoke(P => (P.Idade < 40), P)))}
             return Ok();
         }
     }

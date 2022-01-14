@@ -3,7 +3,7 @@ using System;
 
 namespace FiltrDinamico.Core.Interpreters
 {
-    public class FilterInterpreterFactory : IFilterInterpreterFactory
+    internal class FilterInterpreterFactory : IFilterInterpreterFactory
     {
         public IFilterTypeInterpreter<TType> Create<TType>(FiltroItem filtroItem, Operator @operator)
         {
